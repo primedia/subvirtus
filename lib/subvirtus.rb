@@ -28,9 +28,13 @@ module Subvirtus
     when 'String'
       value.to_s
     when 'Fixnum'
-      value.to_i
-    when 'Double'
-      value.to_d
+      if value.respond_to? :to_i
+        value.to_i
+      elsif value.is_a? TrueClass or value.is_a? FalseClass
+        value ? 1 : 0
+      end
+    when 'Float'
+      value.to_f
     when 'Boolean'
       value.to_b
     end
