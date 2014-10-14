@@ -5,17 +5,16 @@ module Subvirtus
   module ClassMethods
 
     def attribute( name, type = nil, options = {} )
-      define_method( :"#{ name }=" ) do |value|
-        @name = value
-      end
+      attr_writer name
       define_method( name ) do
-        if @name.nil? and options[ :default ]
-          @name = options[ :default ]
+        instance_variable = instance_variable_get "@#{ name }"
+        if instance_variable.nil? and options[ :default ]
+          instance_variable = options[ :default ]
         end
-        unless type.nil? or @name.is_a? type
-          @name = convert @name, type
+        unless type.nil? or instance_variable.is_a? type
+          instance_variable = convert instance_variable, type
         end
-        @name
+        instance_variable
       end
       self
     end

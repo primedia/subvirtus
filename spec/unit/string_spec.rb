@@ -57,6 +57,18 @@ describe PlainTest do
   it 'returns an empty string when nothing is passed in' do
     expect( @test.name ).to eq( '' )
   end
+  it 'returns to_s when passed something random without a defined to_s' do
+	class SomeClass; end
+  	some_class = SomeClass.new
+  	@test.name = some_class
+    expect( @test.name ).to eq( some_class.to_s )
+  end
+  it 'returns to_s when passed something random with a defined to_s' do
+	class SomeClass; def to_s; 'random'; end; end
+  	some_class = SomeClass.new
+  	@test.name = some_class
+    expect( @test.name ).to eq( some_class.to_s )
+  end
 end
 
 class TestWithDefault
@@ -115,5 +127,17 @@ describe TestWithDefault do
   end
   it 'returns the default when nothing is passed in' do
     expect( @test.name ).to eq( 'subvirtus' )
+  end
+  it 'returns to_s when passed something random without a defined to_s' do
+	class SomeClass; end
+  	some_class = SomeClass.new
+  	@test.name = some_class
+    expect( @test.name ).to eq( some_class.to_s )
+  end
+  it 'returns to_s when passed something random with a defined to_s' do
+	class SomeClass; def to_s; 'random'; end; end
+  	some_class = SomeClass.new
+  	@test.name = some_class
+    expect( @test.name ).to eq( some_class.to_s )
   end
 end
