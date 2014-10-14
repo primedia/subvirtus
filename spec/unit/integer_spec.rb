@@ -1,0 +1,119 @@
+require 'spec_helper'
+
+class PlainTest
+  include Subvirtus
+  attribute :age, Integer
+end
+
+describe PlainTest do
+  before do
+    @test = PlainTest.new
+  end
+
+  it 'returns a integer value given' do
+    @test.age = 11
+    expect( @test.age ).to eq( 11 )
+  end
+  it 'returns a integer when given a integer' do
+    @test.age = 87
+    expect( @test.age.is_a? Integer ).to be_truthy
+  end
+  it 'returns a integer when given a string' do
+    @test.age = "42"
+    expect( @test.age.is_a? Integer ).to be_truthy
+  end
+  it 'returns a integer representive of a given integer in a string' do
+    @test.age = "42"
+    expect( @test.age ).to eq( 42 )
+  end
+  it 'returns a integer when given an float' do
+    @test.age = 42.7
+    expect( @test.age.is_a? Integer ).to be_truthy
+  end
+  it 'returns a integer representive of a given float' do
+    @test.age = 42.7
+    expect( @test.age ).to eq( 42 )
+  end
+  it 'returns a integer when given a boolean' do
+    @test.age = true
+    expect( @test.age.is_a? Integer ).to be_truthy
+  end
+  it 'returns a 0 when given a false' do
+    @test.age = false
+    expect( @test.age ).to eq( 0 )
+  end
+  it 'returns a 1 when given a true' do
+    @test.age = true
+    expect( @test.age ).to eq( 1 )
+  end
+  it 'returns a integer when given a nil' do
+    @test.age = nil
+    expect( @test.age.is_a? Integer ).to be_truthy
+  end
+  it 'returns a 0 when given a nil' do
+    @test.age = nil
+    expect( @test.age ).to eq( 0 )
+  end
+  it 'returns 0 when nothing is passed in' do
+    expect( @test.age ).to eq( 0 )
+  end
+end
+
+class TestWithDefault
+  include Subvirtus
+  attribute :age, Integer, default: 9
+end
+
+describe TestWithDefault do
+  before do
+    @test = TestWithDefault.new
+  end
+
+  it 'returns a integer value given' do
+    @test.age = 11
+    expect( @test.age ).to eq( 11 )
+  end
+  it 'returns a integer when given a integer' do
+    @test.age = 87
+    expect( @test.age.is_a? Integer ).to be_truthy
+  end
+  it 'returns a integer when given a string' do
+    @test.age = "42"
+    expect( @test.age.is_a? Integer ).to be_truthy
+  end
+  it 'returns a integer representive of a given integer in a string' do
+    @test.age = "42"
+    expect( @test.age ).to eq( 42 )
+  end
+  it 'returns a integer when given an float' do
+    @test.age = 42.7
+    expect( @test.age.is_a? Integer ).to be_truthy
+  end
+  it 'returns a integer representive of a given float' do
+    @test.age = 42.7
+    expect( @test.age ).to eq( 42 )
+  end
+  it 'returns a integer when given a boolean' do
+    @test.age = true
+    expect( @test.age.is_a? Integer ).to be_truthy
+  end
+  it 'returns a 0 when given a false' do
+    @test.age = false
+    expect( @test.age ).to eq( 0 )
+  end
+  it 'returns a 1 when given a true' do
+    @test.age = true
+    expect( @test.age ).to eq( 1 )
+  end
+  it 'returns a integer when given a nil' do
+    @test.age = nil
+    expect( @test.age.is_a? Integer ).to be_truthy
+  end
+  it 'returns the default when given a nil' do
+    @test.age = nil
+    expect( @test.age ).to eq( 9 )
+  end
+  it 'returns the default when nothing is passed in' do
+    expect( @test.age ).to eq( 9 )
+  end
+end
