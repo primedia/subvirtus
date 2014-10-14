@@ -1,1 +1,1 @@
-require 'arete'
+require 'subvirtus'

@@ -1,15 +1,15 @@
-Arete
+Subvirtus
 ======
 
 Installation
 ------------
 
 ``` terminal
-$ gem install arete
+$ gem install subvirtus
 ```
 
 or in your **Gemfile**
 
 ``` ruby
-gem 'arete'
+gem 'subvirtus'
 ```
