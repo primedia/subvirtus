@@ -27,14 +27,18 @@ module Subvirtus
     case type.to_s
     when 'String'
       value.to_s
-    when 'Fixnum'
+    when 'Integer'
       if value.respond_to? :to_i
         value.to_i
       elsif value.is_a? TrueClass or value.is_a? FalseClass
         value ? 1 : 0
       end
     when 'Float'
-      value.to_f
+      if value.respond_to? :to_f
+        value.to_f
+      elsif value.is_a? TrueClass or value.is_a? FalseClass
+        value ? 1.0 : 0.0
+      end
     when 'Boolean'
       value.to_b
     end
