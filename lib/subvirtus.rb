@@ -1,5 +1,9 @@
 module Subvirtus
+
+  module Boolean; end
+
   module ClassMethods
+
     def attribute( name, type = nil, options = {} )
       define_method( :"#{ name }=" ) do |value|
         @name = value
@@ -39,8 +43,20 @@ module Subvirtus
       elsif value.is_a? TrueClass or value.is_a? FalseClass
         value ? 1.0 : 0.0
       end
-    when 'Boolean'
-      value.to_b
+    when 'Subvirtus::Boolean'
+      if value.nil?
+        false
+      elsif value.is_a? String
+        value != ''
+      elsif value.is_a? Integer
+        value != 0
+      elsif value.is_a? TrueClass or value.is_a? FalseClass
+        value
+      elsif value.is_a? Float
+        value != 0.0
+      else
+        true
+      end
     end
   end
 end
