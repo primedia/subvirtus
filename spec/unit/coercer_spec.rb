@@ -36,7 +36,7 @@ describe CoercerTest do
     expect( @test.abcs ).to eq( { a: 1, b: 2, z: 26 } )
   end
 
-  it 'converts a value returned by a coercer' do
-    expect( @test.number ).to eq( true )
+  it 'does not convert a value returned by a coercer' do
+    expect( @test.number ).to eq( 1 )
   end
 end

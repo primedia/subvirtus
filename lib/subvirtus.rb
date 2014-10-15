@@ -12,10 +12,20 @@ module Subvirtus
       attr_writer name
       define_method( name ) do
         value = instance_variable_get "@#{ name }"
-        if type.is_a? Array
-          value.map { |v| determine_value v, type.first, options }
+        if options[ :coercer ]
+          options[ :coercer ].call value
         else
-          determine_value value, type, options
+          if type.is_a? Array
+            if value.nil?
+              []
+            elsif value.is_a? Array
+              value.map { |v| determine_value v, type.first, options }
+            else
+              determine_value value, type.first, options
+            end
+          else
+            determine_value value, type, options
+          end
         end
       end
       self
@@ -30,13 +40,17 @@ module Subvirtus
 
   def determine_value( value, type, options )
     # TODO Less steps?
-    if value.nil? and options[ :default ]
-      value = options[ :default ]
+    default = options[ :default ]
+    if value.nil? and default
+      if default.is_a? Symbol
+        value = send default
+      else
+        value = default
+      end
     end
-    unless options[ :coercer ].nil?
+    if options[ :coercer ]
       value = options[ :coercer ].call value
-    end
-    unless type.nil? or value.is_a? type
+    elsif type and not value.is_a? type
       value = convert value, type
     end
     value
