@@ -37,4 +37,8 @@ describe PlainTest do
   it "still works for attributes not set in a passed in hash" do
   	expect( @test.home ).to eq( 'Sweet Home' )
   end
+
+  it "returns a hash" do
+  	expect( @test.to_hash ).to eq( { 'here' => false, 'name' => 'david', 'cash' => 12.34, 'age' => 21, 'home' => 'Sweet Home' } )
+  end
 end

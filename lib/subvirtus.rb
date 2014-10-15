@@ -4,7 +4,11 @@ module Subvirtus
 
   module ClassMethods
 
+    attr_reader :attributes
+
     def attribute( name, type = nil, options = {} )
+      @attributes ||= []
+      @attributes << name
       attr_writer name
       define_method( name ) do
         instance_variable = instance_variable_get "@#{ name }"
@@ -29,6 +33,9 @@ module Subvirtus
   def initialize( params = {} )
     params.each do |name, val|
       self.send( :"#{name}=", val ) if respond_to? "#{ name }="
+    end
+    self.class.send( :define_method, :to_hash ) do
+      Hash[ self.class.attributes.map { |attribute| [ attribute.to_s, send( attribute ) ] } ]
     end
   end
 
