@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-class PlainTest
+class PlainBooleanTest
   include Subvirtus
   attribute :here, Boolean
 end
 
-describe PlainTest do
+describe PlainBooleanTest do
   before do
-    @test = PlainTest.new
+    @test = PlainBooleanTest.new
   end
 
   it 'returns true when set to true' do
@@ -51,14 +51,14 @@ describe PlainTest do
   end
 end
 
-class TrueTest
+class TrueBooleanTest
   include Subvirtus
   attribute :here, Boolean, default: true
 end
 
-describe TrueTest do
+describe TrueBooleanTest do
   before do
-    @test = TrueTest.new
+    @test = TrueBooleanTest.new
   end
 
   it 'returns true when set to true' do
@@ -102,14 +102,14 @@ describe TrueTest do
   end
 end
 
-class FalseTest
+class FalseBooleanTest
   include Subvirtus
   attribute :here, Boolean, default: false
 end
 
-describe FalseTest do
+describe FalseBooleanTest do
   before do
-    @test = FalseTest.new
+    @test = FalseBooleanTest.new
   end
 
   it 'returns true when set to true' do

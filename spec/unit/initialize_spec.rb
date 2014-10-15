@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class PlainTest
+class InitializerTest
   include Subvirtus
   attribute :here, Boolean, default: true
   attribute :name, String,  default: 'subvirtus'
@@ -9,9 +9,9 @@ class PlainTest
   attribute :home, String,  default: 'Sweet Home'
 end
 
-describe PlainTest do
+describe InitializerTest do
   before do
-    @test = PlainTest.new( { here: false, name: 'david', cash: 12.34, age: 21, random: 'abc' } )
+    @test = InitializerTest.new( { here: false, name: 'david', cash: 12.34, age: 21, random: 'abc' } )
   end
 
   it "has the correct boolean value from a passed in hash" do

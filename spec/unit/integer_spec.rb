@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-class PlainTest
+class PlainIntegerTest
   include Subvirtus
   attribute :age, Integer
 end
 
-describe PlainTest do
+describe PlainIntegerTest do
   before do
-    @test = PlainTest.new
+    @test = PlainIntegerTest.new
   end
 
   it 'returns a integer value given' do
@@ -59,14 +59,14 @@ describe PlainTest do
   end
 end
 
-class TestWithDefault
+class IntegerTestWithDefault
   include Subvirtus
   attribute :age, Integer, default: 9
 end
 
-describe TestWithDefault do
+describe IntegerTestWithDefault do
   before do
-    @test = TestWithDefault.new
+    @test = IntegerTestWithDefault.new
   end
 
   it 'returns a integer value given' do

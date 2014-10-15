@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class PlainTest
+class PlainMultiplesTest
   include Subvirtus
   attribute :name,  String
   attribute :age,   Integer
@@ -8,9 +8,9 @@ class PlainTest
   attribute :cash,  Float
 end
 
-describe PlainTest do
+describe PlainMultiplesTest do
   before do
-    @test = PlainTest.new
+    @test = PlainMultiplesTest.new
   end
 
   it 'returns separate initial values for multiple attributes' do
@@ -32,7 +32,7 @@ describe PlainTest do
   end
 end
 
-class TestWithDefaults
+class MultiplesTestWithDefaults
   include Subvirtus
   attribute :name,  String,   default: 'subvirtus'
   attribute :age,   Integer,  default: 43
@@ -40,9 +40,9 @@ class TestWithDefaults
   attribute :cash,  Float,    default: 9.99
 end
 
-describe TestWithDefaults do
+describe MultiplesTestWithDefaults do
   before do
-    @test = TestWithDefaults.new
+    @test = MultiplesTestWithDefaults.new
   end
 
   it 'returns separate initial values for multiple attributes' do

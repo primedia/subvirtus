@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-class PlainTest
+class PlainFloatTest
   include Subvirtus
   attribute :cash, Float
 end
 
-describe PlainTest do
+describe PlainFloatTest do
   before do
-    @test = PlainTest.new
+    @test = PlainFloatTest.new
   end
 
   it 'returns a float value given' do
@@ -59,14 +59,14 @@ describe PlainTest do
   end
 end
 
-class TestWithDefault
+class FloatTestWithDefault
   include Subvirtus
   attribute :cash, Float, default: 9.57
 end
 
-describe TestWithDefault do
+describe FloatTestWithDefault do
   before do
-    @test = TestWithDefault.new
+    @test = FloatTestWithDefault.new
   end
 
   it 'returns a float value given' do

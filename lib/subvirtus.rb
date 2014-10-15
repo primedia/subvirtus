@@ -11,14 +11,17 @@ module Subvirtus
       @attributes << name
       attr_writer name
       define_method( name ) do
-        instance_variable = instance_variable_get "@#{ name }"
-        if instance_variable.nil? and options[ :default ]
-          instance_variable = options[ :default ]
+        value = instance_variable_get "@#{ name }"
+        if value.nil? and options[ :default ]
+          value = options[ :default ]
         end
-        unless type.nil? or instance_variable.is_a? type
-          instance_variable = convert instance_variable, type
+        unless options[ :coercer ].nil?
+          value = options[ :coercer ].call value
         end
-        instance_variable
+        unless type.nil? or value.is_a? type
+          value = convert value, type
+        end
+        value
       end
       self
     end

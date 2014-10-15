@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-class PlainTest
+class PlainStringTest
   include Subvirtus
   attribute :name, String
 end
 
-describe PlainTest do
+describe PlainStringTest do
   before do
-    @test = PlainTest.new
+    @test = PlainStringTest.new
   end
 
   it 'returns a string value given' do
@@ -71,14 +71,14 @@ describe PlainTest do
   end
 end
 
-class TestWithDefault
+class StringTestWithDefault
   include Subvirtus
   attribute :name, String, default: 'subvirtus'
 end
 
-describe TestWithDefault do
+describe StringTestWithDefault do
   before do
-    @test = TestWithDefault.new
+    @test = StringTestWithDefault.new
   end
 
   it 'returns a string value given' do
