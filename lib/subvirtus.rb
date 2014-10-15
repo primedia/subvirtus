@@ -12,16 +12,11 @@ module Subvirtus
       attr_writer name
       define_method( name ) do
         value = instance_variable_get "@#{ name }"
-        if value.nil? and options[ :default ]
-          value = options[ :default ]
+        if type.is_a? Array
+          value.map { |v| determine_value v, type.first, options }
+        else
+          determine_value value, type, options
         end
-        unless options[ :coercer ].nil?
-          value = options[ :coercer ].call value
-        end
-        unless type.nil? or value.is_a? type
-          value = convert value, type
-        end
-        value
       end
       self
     end
@@ -33,9 +28,23 @@ module Subvirtus
 
   private
 
+  def determine_value( value, type, options )
+    # TODO Less steps?
+    if value.nil? and options[ :default ]
+      value = options[ :default ]
+    end
+    unless options[ :coercer ].nil?
+      value = options[ :coercer ].call value
+    end
+    unless type.nil? or value.is_a? type
+      value = convert value, type
+    end
+    value
+  end
+
   def initialize( params = {} )
-    params.each do |name, val|
-      self.send( :"#{name}=", val ) if respond_to? "#{ name }="
+    params.each do |name, value|
+      self.send( :"#{name}=", value ) if respond_to? "#{ name }="
     end
     self.class.send( :define_method, :to_hash ) do
       Hash[ self.class.attributes.map { |attribute| [ attribute, send( attribute ) ] } ]
@@ -51,6 +60,8 @@ module Subvirtus
         value.to_i
       elsif value.is_a? TrueClass or value.is_a? FalseClass
         value ? 1 : 0
+      else
+        0
       end
     when 'Float'
       if value.respond_to? :to_f
