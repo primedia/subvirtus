@@ -26,6 +26,12 @@ module Subvirtus
 
   private
 
+  def initialize( params = {} )
+    params.each do |name, val|
+      self.send( :"#{name}=", val ) if respond_to? "#{ name }="
+    end
+  end
+
   def convert( value, type )
     case type.to_s
     when 'String'
