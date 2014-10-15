@@ -38,7 +38,7 @@ module Subvirtus
       self.send( :"#{name}=", val ) if respond_to? "#{ name }="
     end
     self.class.send( :define_method, :to_hash ) do
-      Hash[ self.class.attributes.map { |attribute| [ attribute.to_s, send( attribute ) ] } ]
+      Hash[ self.class.attributes.map { |attribute| [ attribute, send( attribute ) ] } ]
     end
   end
 

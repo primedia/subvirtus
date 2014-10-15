@@ -39,6 +39,6 @@ describe InitializerTest do
   end
 
   it "returns a hash" do
-  	expect( @test.to_hash ).to eq( { 'here' => false, 'name' => 'david', 'cash' => 12.34, 'age' => 21, 'home' => 'Sweet Home' } )
+  	expect( @test.to_hash ).to eq( { here: false, name: 'david', cash: 12.34, age: 21, home: 'Sweet Home' } )
   end
 end
