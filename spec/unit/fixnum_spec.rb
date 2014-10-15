@@ -2,7 +2,7 @@ require 'spec_helper'
 
 class PlainIntegerTest
   include Subvirtus
-  attribute :age, 	Integer
+  attribute :age, 	Fixnum
 end
 
 describe PlainIntegerTest do
@@ -61,7 +61,7 @@ end
 
 class IntegerTestWithDefault
   include Subvirtus
-  attribute :age, Integer, default: 9
+  attribute :age, Fixnum, default: 9
 end
 
 describe IntegerTestWithDefault do

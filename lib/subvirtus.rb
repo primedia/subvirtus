@@ -55,7 +55,7 @@ module Subvirtus
     case type.to_s
     when 'String'
       value.to_s
-    when 'Integer'
+    when 'Integer', 'Fixnum', 'Bignum'
       if value.respond_to? :to_i
         value.to_i
       elsif value.is_a? TrueClass or value.is_a? FalseClass
