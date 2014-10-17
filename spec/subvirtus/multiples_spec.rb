@@ -13,11 +13,11 @@ describe PlainMultiplesTest do
     @test = PlainMultiplesTest.new
   end
 
-  it 'returns separate initial values for multiple attributes' do
-    expect( @test.name  ).to eq( ''     )
-    expect( @test.age   ).to eq( 0      )
-    expect( @test.here  ).to eq( false  )
-    expect( @test.cash  ).to eq( 0.0    )
+  it 'returns nil initial values for multiple attributes' do
+    expect( @test.name  ).to eq( nil )
+    expect( @test.age   ).to eq( nil )
+    expect( @test.here  ).to eq( nil )
+    expect( @test.cash  ).to eq( nil )
   end
   it 'returns separate values for multiple given attributes' do
     @test.name  = 'david'

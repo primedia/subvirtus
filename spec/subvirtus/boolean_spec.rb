@@ -42,12 +42,12 @@ describe PlainBooleanTest do
     @test.here = 0.0
     expect( @test.here ).to eq( false )
   end
-  it 'returns false if passed nil with no default value' do
+  it 'returns nil when passed a nil with no default value' do
     @test.here = nil
-    expect( @test.here ).to eq( false )
+    expect( @test.here ).to eq( nil )
   end
-  it 'returns false when not passed anything' do
-    expect( @test.here ).to eq( false )
+  it 'returns nil when not passed anything' do
+    expect( @test.here ).to eq( nil )
   end
 end
 

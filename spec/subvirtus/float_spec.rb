@@ -46,16 +46,16 @@ describe PlainFloatTest do
     @test.cash = true
     expect( @test.cash ).to eq( 1.0 )
   end
-  it 'returns a float when given a nil' do
+  it 'does not return a float when given a nil' do
     @test.cash = nil
-    expect( @test.cash.is_a? Float ).to be_truthy
+    expect( @test.cash.is_a? Float ).to be_falsey
   end
-  it 'returns a 0.0 when given a nil' do
+  it 'returns nil when given a nil' do
     @test.cash = nil
-    expect( @test.cash ).to eq( 0.0 )
+    expect( @test.cash ).to eq( nil )
   end
-  it 'returns 0.0 when nothing is passed in' do
-    expect( @test.cash ).to eq( 0.0 )
+  it 'returns nil when nothing is passed in' do
+    expect( @test.cash ).to eq( nil )
   end
 end
 

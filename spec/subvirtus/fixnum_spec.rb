@@ -2,7 +2,7 @@ require 'spec_helper'
 
 class PlainIntegerTest
   include Subvirtus
-  attribute :age, 	Bignum
+  attribute :age, 	Fixnum
 end
 
 describe PlainIntegerTest do
@@ -46,22 +46,22 @@ describe PlainIntegerTest do
     @test.age = true
     expect( @test.age ).to eq( 1 )
   end
-  it 'returns a integer when given a nil' do
+  it 'does not return an integer when given a nil' do
     @test.age = nil
-    expect( @test.age.is_a? Integer ).to be_truthy
+    expect( @test.age.is_a? Integer ).to be_falsey
   end
-  it 'returns a 0 when given a nil' do
+  it 'returns nil when given a nil' do
     @test.age = nil
-    expect( @test.age ).to eq( 0 )
+    expect( @test.age ).to eq( nil )
   end
-  it 'returns 0 when nothing is passed in' do
-    expect( @test.age ).to eq( 0 )
+  it 'returns nil when nothing is passed in' do
+    expect( @test.age ).to eq( nil )
   end
 end
 
 class IntegerTestWithDefault
   include Subvirtus
-  attribute :age, Bignum, default: 9
+  attribute :age, Fixnum, default: 9
 end
 
 describe IntegerTestWithDefault do

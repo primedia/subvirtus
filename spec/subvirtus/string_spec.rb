@@ -46,16 +46,16 @@ describe PlainStringTest do
     @test.name = true
     expect( @test.name ).to eq( 'true' )
   end
-  it 'returns a string when given a nil' do
+  it 'does not return a string when given a nil' do
     @test.name = nil
-    expect( @test.name.is_a? String ).to be_truthy
+    expect( @test.name.is_a? String ).to be_falsey
   end
-  it 'returns an empty string when given a nil' do
+  it 'returns nil when given a nil' do
     @test.name = nil
-    expect( @test.name ).to eq( '' )
+    expect( @test.name ).to eq( nil )
   end
-  it 'returns an empty string when nothing is passed in' do
-    expect( @test.name ).to eq( '' )
+  it 'returns nil when nothing is passed in' do
+    expect( @test.name ).to eq( nil )
   end
   it 'returns to_s when passed something random without a defined to_s' do
 	class SomeClass; end

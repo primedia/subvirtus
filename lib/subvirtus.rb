@@ -5,29 +5,39 @@ module Subvirtus
   module ClassMethods
 
     attr_reader :attributes
+    attr_reader :set_attributes
 
     def attribute( name, type = nil, options = {} )
       @attributes ||= []
-      @attributes << name
-      attr_writer name
+      @attributes << name unless @attributes.include? name
+      define_method( "#{ name }=") do |value|
+        @set_attributes ||= []
+        @set_attributes << name
+        instance_variable_set "@#{ name }", value
+      end
       define_method( name ) do
         value = instance_variable_get "@#{ name }"
-        if options[ :coercer ]
-          options[ :coercer ].call value
+        coercer = options[ :coercer ]
+        default = options[ :default ]
+        if coercer
+          coercer.call value
+        elsif value.nil? and not default.nil? and default.is_a? Symbol and respond_to? default
+          send default
         else
           if type.is_a? Array
             if value.nil?
               []
             elsif value.is_a? Array
-              value.map { |v| determine_value v, type.first, options }
+              value.map { |v| determine_value name, v, type.first, options }
             else
-              determine_value value, type.first, options
+              determine_value name, value, type.first, options
             end
           else
-            determine_value value, type, options
+            determine_value name, value, type, options
           end
         end
       end
+      private :"#{ name }" if options[ :reader ] == :private
       self
     end
   end
@@ -36,29 +46,37 @@ module Subvirtus
     base.extend ClassMethods
   end
 
+  def attributes
+    Hash[ self.class.attributes.map { |v| [ v, send( v ) ] } ] || {}
+  end
+
+  def []( key )
+    send( key ) if self.class.attributes.include? key
+  end
+
   private
 
-  def determine_value( value, type, options )
-    # TODO Less steps?
+  def determine_value( name, value, type, options )
     default = options[ :default ]
-    if value.nil? and default
-      if default.is_a? Symbol
-        value = send default
-      else
-        value = default
-      end
-    end
-    if options[ :coercer ]
-      value = options[ :coercer ].call value
+    if value.nil? and not default.nil?
+      value = default
     elsif type and not value.is_a? type
-      value = convert value, type
+      if not value.nil? and @set_attributes.include? name
+        if value.is_a? Hash and not type.is_a? Hash
+          value = type.new value
+        else
+          value = convert value, type
+        end
+      end
     end
     value
   end
 
   def initialize( params = {} )
-    params.each do |name, value|
-      self.send( :"#{name}=", value ) if respond_to? "#{ name }="
+    unless params.nil?
+      params.each do |name, value|
+        self.send( :"#{name}=", value ) if respond_to? "#{ name }="
+      end
     end
     self.class.send( :define_method, :to_hash ) do
       Hash[ self.class.attributes.map { |attribute| [ attribute, send( attribute ) ] } ]

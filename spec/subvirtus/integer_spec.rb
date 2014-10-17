@@ -10,31 +10,31 @@ describe PlainIntegerTest do
     @test = PlainIntegerTest.new
   end
 
-  it 'returns a integer value given' do
+  it 'returns an integer value given' do
     @test.age = 11
     expect( @test.age ).to eq( 11 )
   end
-  it 'returns a integer when given a integer' do
+  it 'returns an integer when given an integer' do
     @test.age = 87
     expect( @test.age.is_a? Integer ).to be_truthy
   end
-  it 'returns a integer when given a string' do
+  it 'returns an integer when given a string' do
     @test.age = "42"
     expect( @test.age.is_a? Integer ).to be_truthy
   end
-  it 'returns a integer representive of a given integer in a string' do
+  it 'returns an integer representive of a given integer in a string' do
     @test.age = "42"
     expect( @test.age ).to eq( 42 )
   end
-  it 'returns a integer when given an float' do
+  it 'returns an integer when given an float' do
     @test.age = 42.7
     expect( @test.age.is_a? Integer ).to be_truthy
   end
-  it 'returns a integer representive of a given float' do
+  it 'returns an integer representive of a given float' do
     @test.age = 42.7
     expect( @test.age ).to eq( 42 )
   end
-  it 'returns a integer when given a boolean' do
+  it 'returns an integer when given a boolean' do
     @test.age = true
     expect( @test.age.is_a? Integer ).to be_truthy
   end
@@ -46,16 +46,16 @@ describe PlainIntegerTest do
     @test.age = true
     expect( @test.age ).to eq( 1 )
   end
-  it 'returns a integer when given a nil' do
+  it 'does not return an integer when given a nil' do
     @test.age = nil
-    expect( @test.age.is_a? Integer ).to be_truthy
+    expect( @test.age.is_a? Integer ).to be_falsey
   end
-  it 'returns a 0 when given a nil' do
+  it 'returns nil when given a nil' do
     @test.age = nil
-    expect( @test.age ).to eq( 0 )
+    expect( @test.age ).to eq( nil )
   end
-  it 'returns 0 when nothing is passed in' do
-    expect( @test.age ).to eq( 0 )
+  it 'returns nil when nothing is passed in' do
+    expect( @test.age ).to eq( nil )
   end
 end
 
@@ -69,31 +69,31 @@ describe IntegerTestWithDefault do
     @test = IntegerTestWithDefault.new
   end
 
-  it 'returns a integer value given' do
+  it 'returns an integer value given' do
     @test.age = 11
     expect( @test.age ).to eq( 11 )
   end
-  it 'returns a integer when given a integer' do
+  it 'returns an integer when given an integer' do
     @test.age = 87
     expect( @test.age.is_a? Integer ).to be_truthy
   end
-  it 'returns a integer when given a string' do
+  it 'returns an integer when given a string' do
     @test.age = "42"
     expect( @test.age.is_a? Integer ).to be_truthy
   end
-  it 'returns a integer representive of a given integer in a string' do
+  it 'returns an integer representive of a given integer in a string' do
     @test.age = "42"
     expect( @test.age ).to eq( 42 )
   end
-  it 'returns a integer when given an float' do
+  it 'returns an integer when given an float' do
     @test.age = 42.7
     expect( @test.age.is_a? Integer ).to be_truthy
   end
-  it 'returns a integer representive of a given float' do
+  it 'returns an integer representive of a given float' do
     @test.age = 42.7
     expect( @test.age ).to eq( 42 )
   end
-  it 'returns a integer when given a boolean' do
+  it 'returns an integer when given a boolean' do
     @test.age = true
     expect( @test.age.is_a? Integer ).to be_truthy
   end
@@ -105,7 +105,7 @@ describe IntegerTestWithDefault do
     @test.age = true
     expect( @test.age ).to eq( 1 )
   end
-  it 'returns a integer when given a nil' do
+  it 'returns an integer when given a nil' do
     @test.age = nil
     expect( @test.age.is_a? Integer ).to be_truthy
   end
