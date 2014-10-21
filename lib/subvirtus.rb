@@ -6,8 +6,13 @@ module Subvirtus
 
     attr_reader :attributes
     attr_reader :set_attributes
+    attr_reader :value_attributes
 
     def attribute( name, type = nil, options = {} )
+      if @in_values
+        @value_attributes ||= []
+        @value_attributes << name unless @value_attributes.include? name
+      end
       @attributes ||= []
       @attributes << name unless @attributes.include? name
       define_method( "#{ name }=") do |value|
@@ -42,12 +47,21 @@ module Subvirtus
     end
   end
 
+  def self.value_object
+    require_relative 'subvirtus/value_object'
+    Subvirtus::ValueObject
+  end
+
   def self.included( base )
     base.extend ClassMethods
   end
 
   def attributes
     Hash[ self.class.attributes.map { |v| [ v, send( v ) ] } ] || {}
+  end
+
+  def value_attributes
+    self.class.value_attributes
   end
 
   def []( key )
