@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.date          = Date.today.to_s
   gem.description   = 'Ruby attributes with type coercion.'
   gem.email         = ['dcole@rentpath.com', 'tboyd@rentpath.com']
-  gem.files         = Dir.glob( '{ bin,lib }/**/*' ) + %w( README.md )
+  gem.files         = Dir.glob( '{bin,lib}/**/*' ) + %w( README.md )
   gem.homepage      = 'http://github.com/primedia/subvirtus'
   gem.name          = 'subvirtus'
   gem.platform      = Gem::Platform::RUBY
